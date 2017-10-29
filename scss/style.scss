@@ -1,0 +1,75 @@
+$border: 1px solid black;
+$shadow: 0 0 2em black;
+$lightBlue: rgba(245,248,252,1);
+$blueGradient: linear-gradient(to right bottom, rgba(88,173,234,1), rgba(97,110,175,1));
+* { 
+   font-family: 'Raleway', sans-serif;
+}
+@mixin tables($w: 400px, $h: 50px, $bs: border-box) {
+   width: $w;
+   height: $h;
+   box-sizing: $bs;
+}
+@mixin boxSize {
+   box-sizing: border-box;
+}
+@mixin tables-align($text: center, $vertical: middle) {
+   text-align: $text;
+   vertical-align: middle;
+}
+#container {
+   border-radius: 20px;
+   position: relative;
+   margin: 5% auto;
+   @include boxSize;
+   display: table;
+   @include tables-align;
+   box-shadow: $shadow;
+   font-size: 1.1em;
+   .head {
+      height: 50px;
+      border-radius: 20px 20px 0 0;
+      background: $blueGradient;
+      box-shadow: 0 10px 2em -13px black;
+      span {
+         font-size: 1.2em;
+         color: white;
+         position: relative;
+         top: 30%;
+      }
+   }
+   .tableOfContents {
+      margin: 3% 3%;
+      border-radius: 30px;
+      background-color: $lightBlue;
+      vertical-align: middle;
+      #special {
+         width: 260px;
+      }
+      .headers > td {
+         border-radius: 30px;
+         width: 130px;
+         padding: 1% 1% 1% 1%;
+         &:nth-child(3n), &:nth-child(4n) {
+            cursor: pointer;
+         }
+      }
+   }
+   .tables {
+      tr {
+         @include tables-align;
+      }
+      td {
+         width: 129px;
+         border-top: 2px solid $lightBlue;
+         img {
+            height: 45px;
+            border-radius: 50%;
+            border: 5px solid $lightBlue;
+         }
+      }
+   }
+}
+footer {
+   text-align: center;
+}

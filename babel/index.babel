@@ -1,0 +1,105 @@
+class App extends React.Component {
+   root = 'https://fcctop100.herokuapp.com/api/fccusers/top/';
+   allTime = 'alltime';
+   recent = 'recent';
+ 
+   constructor(props) {
+      super(props);
+      this.state = { data: null, 
+                    url: this.root + this.allTime,
+                    isUrlAlltime: true
+                   };
+      this.changeUrl = this.changeUrl.bind(this);
+      this.changeUrlAlltime = this.changeUrlAlltime.bind(this);
+   }
+
+   fetchData() {
+      fetch(this.state.url)
+         .then(response => response.json())
+         .then(responseJson => {
+         this.setState({ data: responseJson });
+      });  
+   }
+
+   componentDidMount() {
+       this.fetchData();
+   }  
+
+   componentDidUpdate(prevProps, prevState) {
+      if (prevState.url != this.state.url) {
+         this.fetchData();
+      }
+   }
+
+   changeUrl() {
+      this.setState({ 
+         url: this.root + this.recent,
+         isUrlAlltime: false 
+      });
+   }
+
+   changeUrlAlltime() {
+      this.setState({ 
+         url: this.root + this.allTime,
+         isUrlAlltime: true 
+      });
+   }
+
+   render() {
+      return (
+         <div id="container">
+            <Head />
+            <TableOfContents changeUrl={this.changeUrl} changeUrlAlltime={this.changeUrlAlltime} isUrlAlltime={this.state.isUrlAlltime}/>
+            <Tables data={this.state.data}/>
+         </div>
+      );
+   }
+}
+
+const Head = (props) => {
+   return (
+      <div className="head">
+         <span>freeCodeCamp Leaderboard</span>
+      </div>
+   );
+}
+
+const TableOfContents = (props) => {
+   const backgroundForAlltime = {background: props.isUrlAlltime ? 'linear-gradient(to right bottom, rgba(88,173,234,1), rgba(97,110,175,1))': 'rgba(245,248,252,1)'};
+   const backgroundForRecent = {background: props.isUrlAlltime ? 'rgba(245,248,252,1)': 'linear-gradient(to right bottom, rgba(88,173,234,1), rgba(97,110,175,1))'};
+   const arrow = props.isUrlAlltime ? '' : '↓';
+   const arrowForAlltime = props.isUrlAlltime ? '↓' : '';
+   return (
+      <div className="tableOfContents">
+         <tr className="headers" >
+            <td>#</td>
+            <td id='special'>Camper Name</td>
+            <td onClick={props.changeUrl} style={backgroundForRecent}>Past month{arrow}</td>
+            <td onClick={props.changeUrlAlltime} style={backgroundForAlltime} >All time points{arrowForAlltime}</td>
+         </tr>
+      </div>
+   );
+}
+
+const Tables = (props) => {
+   if (!props.data) return <p>Loading...</p>;
+   return (
+      <div className="tables">
+         {
+            props.data.map( (d, i) => 
+               <tr id={'table' + i}>
+                  <td class="rankNumbers">{i + 1}</td>
+                  <td><img src={d.img} /></td>
+                  <td>{JSON.stringify(d.username).replace(/"/g, '')}</td>
+                  <td>{JSON.stringify(d.recent)}</td>
+                  <td>{JSON.stringify(d.alltime)}</td>
+               </tr>)
+         }
+      </div>
+   );
+}
+
+ReactDOM.render(
+   <App />,
+   document.getElementById('app')
+);

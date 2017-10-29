@@ -1,0 +1,61 @@
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
+#container {
+  border-radius: 20px;
+  position: relative;
+  margin: 5% auto;
+  box-sizing: border-box;
+  display: table;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 0 2em black;
+  font-size: 1.1em;
+}
+#container .head {
+  height: 50px;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(to right bottom, #58adea, #616eaf);
+  box-shadow: 0 10px 2em -13px black;
+}
+#container .head span {
+  font-size: 1.2em;
+  color: white;
+  position: relative;
+  top: 30%;
+}
+#container .tableOfContents {
+  margin: 3% 3%;
+  border-radius: 30px;
+  background-color: #f5f8fc;
+  vertical-align: middle;
+}
+#container .tableOfContents #special {
+  width: 260px;
+}
+#container .tableOfContents .headers > td {
+  border-radius: 30px;
+  width: 130px;
+  padding: 1% 1% 1% 1%;
+}
+#container .tableOfContents .headers > td:nth-child(3n), #container .tableOfContents .headers > td:nth-child(4n) {
+  cursor: pointer;
+}
+#container .tables tr {
+  text-align: center;
+  vertical-align: middle;
+}
+#container .tables td {
+  width: 129px;
+  border-top: 2px solid #f5f8fc;
+}
+#container .tables td img {
+  height: 45px;
+  border-radius: 50%;
+  border: 5px solid #f5f8fc;
+}
+
+footer {
+  text-align: center;
+}
